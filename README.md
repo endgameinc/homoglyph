@@ -32,19 +32,19 @@ You can install ttf-mscorefonts-installer
 Look in `c:\Windows\Fonts`
 
 ## Code params
-The code is very simple and has a couple parameters that can be changed inline.  The first is data type.  For running the code on process data, set the `dataset_type` to `"process"` like:
+The code is very simple and has a couple parameters that can be changed inline.  The first is data type.  For running the code on process data, set the `dataset_type` to `"process"`:
 
 ```
 dataset_type = 'process'
 ```
 
-For domains do:
+For domains:
 
 ```
 dataset_type = 'domain'
 ```
 
-The second parameter allows the code to run on a subset of the data to get results faster.  Note that a smaller dataset will get worse results.  To set this parameter to a subset do:
+The second parameter allows the code to run on a subset of the data to get results faster.  Note that a smaller dataset will get worse results.  To set this parameter to a subset set `isFast` to `True`:
 
 ```
 isFast = True
