@@ -1,3 +1,7 @@
 editdistance==0.4
 Keras==1.2.2
 tensorflow==1.0.1
+matplotlib
+pillow # Instead of pil
+scikit-learn # Instead of sklearn
+h5py # Needed by keras
