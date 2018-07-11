@@ -1,4 +1,6 @@
 """Sample code for siamese neural net for detecting spoofing attacks"""
+from __future__ import with_statement
+
 import matplotlib
 matplotlib.use('Agg')
 
@@ -115,7 +117,8 @@ def initialize_encoder(self):
     weight_file = os.path.join(OUTPUT_DIR, dataset_type + '_cnn.h5')
 
     # Load model
-    model = model_from_json(open(model_file).read())
+    with open(model_file) as f:
+        model = model_from_json(f.read())
     model.load_weights(weight_file)
 
     # Set up encoder to convert images to features
@@ -133,7 +136,8 @@ if not os.path.isfile(OUTPUT_FILE):
     text_location = (0, 0)
     max_epochs = 25
 
-    data = pickle.load(open(INPUT_FILE))
+    with open(INPUT_FILE) as f:
+        data = pickle.load(f)
 
     if isFast:
         data['train'] = random.sample(data['train'], 20000)
@@ -176,7 +180,8 @@ if not os.path.isfile(OUTPUT_FILE):
     # Save the NN
     json_string = model.to_json()
     model.save_weights(os.path.join(OUTPUT_DIR, dataset_type + '_cnn.h5'), overwrite=True)
-    open(os.path.join(OUTPUT_DIR, dataset_type + '_cnn.json'), 'wb').write(json_string)
+    with open(os.path.join(OUTPUT_DIR, dataset_type + '_cnn.json'), 'wb') as f:
+        f.write(json_string)
 
     scores = [-x[0] for x in model.predict([X1_test, X2_test])]
     fpr_siamese, tpr_siamese, _ = roc_curve(y_test, scores)
@@ -214,9 +219,11 @@ if not os.path.isfile(OUTPUT_FILE):
     results['editdistance_percent'] = {'fpr': fpr_ps, 'tpr': tpr_ps, 'auc':roc_auc_ps}
     results['siamese'] = {'fpr': fpr_siamese, 'tpr': tpr_siamese, 'auc':roc_auc_siamese}
 
-    pickle.dump(results, open(OUTPUT_FILE, 'w'))
+    with open(OUTPUT_FILE, 'w') as f:
+        pickle.dump(results, f)
 
-results = pickle.load(open(OUTPUT_FILE))
+with open(OUTPUT_FILE) as f:
+    results = pickle.load(f)
 #
 # Make Figures
 #
