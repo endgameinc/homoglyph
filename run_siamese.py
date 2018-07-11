@@ -14,7 +14,7 @@ import strSimilarity
 
 from keras.layers import Dense, Input, Lambda, Flatten, Convolution2D, MaxPooling2D
 from keras.layers.advanced_activations import LeakyReLU
-from keras.models import Sequential, Model
+from keras.models import Sequential, Model, model_from_json
 from keras import backend as K
 from keras.optimizers import RMSprop
 from PIL import Image
